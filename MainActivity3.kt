@@ -7,34 +7,37 @@ import androidx.appcompat.app.AppCompatActivity
 
 
 class MainActivity3 : AppCompatActivity() {
-
-    private lateinit var dayDetails: Array<TextView>
+    private val temperatures = arrayOf(12, 15, 0, 0, 0, 10, 10)
+    private val conditions = arrayOf("Sunny", "Sunny", "", "", "", "Raining", "Cold")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main3)
 
-        // Initialize TextViews
-        dayDetails = arrayOf(
-            findViewById(R.id.textViewMonday), findViewById(R.id.textViewTuesday), findViewById(R.id.textViewWednesday),
-            findViewById(R.id.textViewThursday), findViewById(R.id.textViewFriday), findViewById(R.id.textViewSaturday),
-            findViewById(R.id.textViewSunday)
-            // Initialize other TextViews similarly...
-        )
+        val dayDetails = findViewById<TextView>(R.id.day_details)
+        val btnBack = findViewById<Button>(R.id.btnBack)
 
-        // Fetch data from intent or shared storage and display details
-        // Example:
-        for (i in dayDetails.indices) {
-            dayDetails[i].text = "Day ${i + 1}: Temperature, Conditions, etc."
-            (i in dayDetails.indices)
+        dayDetails.text = getDayDetails()
 
-        }
-
-        findViewById<Button>(R.id.btnBack).setOnClickListener {
+        btnBack.setOnClickListener {
             finish()
         }
     }
+
+    private fun getDayDetails(): String {
+        val days = arrayOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+        val details = StringBuilder()
+        for (i in days.indices) {
+            details.append("${days[i]}: Min ${temperatures[i]}°C, Max ${temperatures[i]}°C, Condition: ${conditions[i]}\n")
+        }
+        return details.toString()
+    }
 }
+
+
+
+
+
 
 
 
